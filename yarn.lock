@@ -638,7 +638,7 @@
     "@emotion/utils" "0.11.1"
     "@emotion/weak-memoize" "0.2.2"
 
-"@emotion/core@^10.0.9":
+"@emotion/core@^10.0.7", "@emotion/core@^10.0.9":
   version "10.0.9"
   resolved "https://registry.yarnpkg.com/@emotion/core/-/core-10.0.9.tgz#f8afbccb0011100680f5dc94657b410c6aa1350e"
   integrity sha512-v5a77dV+uWGoy9w6R3MXZG01lqHcXgoy/jGmJqPDGhPjmpWg26LWXAphYZxpZffFUwDUlDdYDiX5HtaKphvJnQ==
@@ -668,7 +668,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.1.tgz#e93c13942592cf5ef01aa8297444dc192beee52f"
   integrity sha512-Qv4LTqO11jepd5Qmlp3M1YEjBumoTHcHFdgPTQ+sFlIL5myi/7xu/POwP7IRu6odBdmLXdtIs1D6TuW6kbwbbg==
 
-"@emotion/native@^10.0.9":
+"@emotion/native@^10.0.7", "@emotion/native@^10.0.9":
   version "10.0.9"
   resolved "https://registry.yarnpkg.com/@emotion/native/-/native-10.0.9.tgz#e461b9a037f2a48d147faf39a1c780149f9d9c39"
   integrity sha512-594v/cpAILwEQAu4vtfRM+2mPs/tW2rrPbbesCoujRgB5zjsx4wWKLz6XcPxQyTQpoDdbfkKJtNFvsPNyOd43g==
@@ -4469,7 +4469,7 @@ preserve@^0.2.0:
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
   integrity sha1-gV7R9uvGWSb4ZbMQwHE7yzMVzks=
 
-prettier@^1.16.2:
+prettier@^1.16.2, prettier@^1.16.4:
   version "1.16.4"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.4.tgz#73e37e73e018ad2db9c76742e2647e21790c9717"
   integrity sha512-ZzWuos7TI5CKUeQAtFd6Zhm2s6EpAD/ZLApIhsF9pRvRtM1RFo61dM/4MSRUA0SuLugA/zgrZD8m0BaY46Og7g==
@@ -4623,6 +4623,16 @@ react-native-svg@8.0.10:
     color "^2.0.1"
     lodash "^4.16.6"
     pegjs "^0.10.0"
+
+react-native-swiper-parallax@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-swiper-parallax/-/react-native-swiper-parallax-0.1.0.tgz#06b646ff95b3f7476d5107aa3358192006a09b00"
+  integrity sha512-z/gPx2Qz9tQz2ES1V839y2mlx6JUIvU3S0TOdVE6/6GT5w1TmvevWMkgj9Sz1mokbegdtkXfGp4MPRuKEcD3xw==
+  dependencies:
+    "@emotion/core" "^10.0.7"
+    "@emotion/native" "^10.0.7"
+    flow "^0.2.3"
+    prettier "^1.16.4"
 
 react-native-vector-icons@6.0.0:
   version "6.0.0"

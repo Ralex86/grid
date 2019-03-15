@@ -3,14 +3,15 @@ import React from 'react';
 import {View, Image} from 'react-native';
 import styled from '@emotion/native';
 
-const check = require('./assets/check.png');
-const add = require('./assets/add.png');
-const gift = require('./assets/gift.png');
+const check = require('../assets/check.png');
+const add = require('../assets/add.png');
+const gift = require('../assets/gift.png');
 
 type CellData = {
   name: string,
   infos: string,
   activate: boolean,
+  isLast?: boolean,
 };
 
 type Props = {
@@ -47,8 +48,8 @@ class Cell extends React.Component<Props> {
     if (data.name === 'reward') {
       return (
         <CellStyled
-          bColor={data.activate ? colors.orange : colors.white}
-          rColor={data.activate ? colors.orange : colors.green}>
+          bColor={data.activate ? colors.green : colors.white}
+          rColor={colors.green}>
           <Image
             style={{
               width: 23,
@@ -69,7 +70,7 @@ class Cell extends React.Component<Props> {
               width: 23,
               height: 23,
             }}
-            source={add}
+            source={data.isLast ? gift : add}
           />
         </CellStyled>
       );

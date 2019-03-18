@@ -2,7 +2,7 @@
 import React, {Fragment} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import styled from '@emotion/native';
-import Swiper from './components/Swiper';
+import Slider from './components/Slider';
 
 import Stampable from './components/Stampable';
 const loyalty_stampable_levels = [
@@ -25,47 +25,40 @@ const loyalty_stampable_levels = [
 
 class App extends React.Component<*> {
   render() {
-    const grids = [<Grid />, <Grid />, <Grid />];
-    const levels = [<Level />, <Level />, <Level />];
-
     return (
       <AppStyled>
-        <Stampable levels={loyalty_stampable_levels} stamps={22} />
+        <Slider>
+          <Scene opacity={0.6}>
+            <Text>Bla</Text>
+          </Scene>
+          <Scene opacity={0.4}>
+            <Text>Bla</Text>
+          </Scene>
+          <Scene opacity={0.2}>
+            <Text>Bla</Text>
+          </Scene>
+        </Slider>
       </AppStyled>
     );
   }
 }
 
-//{tValue => (
-//<Fragment>
-//<Swiper>
-//</Swiper>
-//<Container left={tValue}>{levels}</Container>
-//<Container left={tValue}>{grids}</Container>
-//</Fragment>
-//)}
-const Container = styled.View`
+const Scene = styled.View`
   display: flex;
-  flex-direction: row;
+  flex: 1;
+  background-color: green;
 `;
 
-const Level = styled.View`
-  width: 100px;
-  height: 50px;
-  border: 1px solid yellow;
-  background-color: orange;
-`;
+// <Grids left={tValue}>{levels}</Grids>
 
-const Grid = styled.View`
-  width: 100px;
-  height: 100px;
-  border: 1px solid blue;
-  background-color: red;
-`;
-
+//<Stampable levels={loyalty_stampable_levels} stamps={22} />
+//
+//
 const AppStyled = styled.View`
   display: flex;
   flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default App;

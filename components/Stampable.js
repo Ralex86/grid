@@ -2,7 +2,7 @@
 import React, {Fragment} from 'react';
 import {View, Text} from 'react-native';
 import styled from '@emotion/native';
-import Slider from 'react-native-swiper-parallax';
+import Slider from './Swiper';
 
 import Grid from './Grid';
 import Cell from './Cell';
@@ -222,8 +222,6 @@ const StampableStyled = styled.View`
   display: flex;
   flex: 1;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
 `;
 
 export default Stampable;

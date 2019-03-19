@@ -152,9 +152,10 @@ class Stampable extends React.Component<Props> {
 
     // render all levels grid
     const grids = cellsByLevel.map(
-      (cells: Array<string>): any => {
+      (cells: Array<string>, index: number): any => {
         return (
           <Grid
+            key={index.toString()}
             cells={cells}
             renderCell={this.renderCell}
             nRow={nRow}

@@ -16,8 +16,9 @@ class Slider extends React.Component<Props, State> {
 
   state = {
     tValue: 0,
-    sceneWidth: 0,
+    sceneWidth: 200,
     dx: new Animated.Value(0),
+
     index: 0,
   };
 
@@ -35,15 +36,37 @@ class Slider extends React.Component<Props, State> {
       useNativeDriver: true,
     };
 
-    Animated.spring(dx, config).start(() => {
+    Animated.timing(dx, config).start(() => {
       this.state.dx.setValue(0);
       this.setState({index: destIndex});
     });
   };
 
   renderScenery = (children, dx) => {
+    console.log('render', this.state);
     return (
       <Scenery>
+        <Animated.View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flex: 1,
+            width: '300%',
+            border: '4px solid yellow',
+            left: (-1 * this.state.index * this.state.sceneWidth) / 2,
+            transform: [
+              {
+                translateX: Animated.divide(dx, 2),
+              },
+            ],
+          }}
+          onLayout={event => {
+            this.setState({
+              sceneWidth: event.nativeEvent.layout.width / this.nChildren,
+            });
+          }}>
+          {children}
+        </Animated.View>
         <Animated.View
           style={{
             display: 'flex',
@@ -68,6 +91,7 @@ class Slider extends React.Component<Props, State> {
   render() {
     const {dx, index} = this.state;
     const {children} = this.props;
+
     return (
       <SliderStyled>
         {this.renderScenery(children, dx)}
@@ -93,7 +117,6 @@ const Scenery = styled.View`
   top: 100px;
   left: 24px;
   right: 24px;
-  bottom: 50%;
 
   display: flex;
   flex-direction: column;

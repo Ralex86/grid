@@ -2,7 +2,7 @@
 import React, {Fragment} from 'react';
 import {View, Text} from 'react-native';
 import styled from '@emotion/native';
-import Slider from './Swiper';
+import Slider from './Slider';
 
 import Grid from './Grid';
 import Cell from './Cell';
@@ -30,7 +30,7 @@ class Stampable extends React.Component<Props> {
   renderCell = (data?: any) => {
     // opportunity to conditionaly render Cells depending on data
     // structure of the cells list passing to Grid component
-    return <Cell data={data} />;
+    return <Cell data={data} size={{width: 42, height: 42}} />;
   };
 
   setGridDimensions = (levels: Array<Level>): GridDimension => {
@@ -164,14 +164,16 @@ class Stampable extends React.Component<Props> {
       },
     );
 
-    const slides = grids.map((grid, index) => {
-      return {
-        content: () => grid,
-        delayedContent: () => <Text>{`Level ${index + 1}`}</Text>,
-      };
-    });
+    return grids;
 
-    return slides;
+    //const slides = grids.map((grid, index) => {
+    //return {
+    //content: () => grid,
+    //delayedContent: () => <Text>{`Level ${index + 1}`}</Text>,
+    //};
+    //});
+
+    //return slides;
   };
 
   renderContent = (Component: any) => {
@@ -190,20 +192,21 @@ class Stampable extends React.Component<Props> {
 
   render() {
     const {levels, stamps} = this.props;
-    console.log('render');
     return (
       <StampableStyled>
-        <Slider
-          slides={this.setSlides(levels, stamps)}
-          renderContent={this.renderContent}
-          renderDelayedContent={() => null}
-          delayFactor={0.3}
-          triggeringThreshold={0}
-        />
+        <Slider>{this.setSlides(levels, stamps)}</Slider>
       </StampableStyled>
     );
   }
 }
+
+//<Slider
+//slides={this.setSlides(levels, stamps)}
+//renderContent={this.renderContent}
+//renderDelayedContent={() => null}
+//delayFactor={0.3}
+//triggeringThreshold={0}
+///>
 
 const Content = styled.View`
   align-items: center;

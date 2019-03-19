@@ -8,17 +8,17 @@ import Stampable from './components/Stampable';
 const loyalty_stampable_levels = [
   {
     level: 1,
-    stamp_amount: 23,
+    stamp_amount: 15,
     reward: 'chocolatine',
   },
   {
     level: 2,
-    stamp_amount: 9,
+    stamp_amount: 5,
     reward: 'croissant',
   },
   {
     level: 3,
-    stamp_amount: 3,
+    stamp_amount: 10,
     reward: 'croissant',
   },
 ];
@@ -27,21 +27,23 @@ class App extends React.Component<*> {
   render() {
     return (
       <AppStyled>
-        <Slider>
-          <Scene opacity={0.6}>
-            <Text>Bla</Text>
-          </Scene>
-          <Scene opacity={0.4}>
-            <Text>Bla</Text>
-          </Scene>
-          <Scene opacity={0.2}>
-            <Text>Bla</Text>
-          </Scene>
-        </Slider>
+        <Stampable levels={loyalty_stampable_levels} stamps={15} />
       </AppStyled>
     );
   }
 }
+
+//<Slider>
+//<Scene opacity={0.6}>
+//<Text>Bla</Text>
+//</Scene>
+//<Scene opacity={0.4}>
+//<Text>Bla</Text>
+//</Scene>
+//<Scene opacity={0.2}>
+//<Text>Bla</Text>
+//</Scene>
+//</Slider>
 
 const Scene = styled.View`
   display: flex;

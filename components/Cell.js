@@ -16,6 +16,10 @@ type CellData = {
 
 type Props = {
   data?: CellData,
+  size: {
+    width: number,
+    height: number,
+  },
 };
 
 const colors = {
@@ -35,10 +39,13 @@ const typeColors = {
 
 class Cell extends React.Component<Props> {
   render() {
-    const {data} = this.props;
+    const {data, size} = this.props;
     if (data == null) {
       return (
         <CellStyled
+          width={size.width}
+          height={size.height}
+          borderRadius={size.width / 2}
           bColor={typeColors['default'].bColor}
           rColor={typeColors['default'].rColor}
         />
@@ -48,12 +55,15 @@ class Cell extends React.Component<Props> {
     if (data.name === 'reward') {
       return (
         <CellStyled
+          width={size.width}
+          height={size.height}
+          borderRadius={size.width / 2}
           bColor={data.activate ? colors.green : colors.white}
           rColor={colors.green}>
           <Image
             style={{
-              width: 23,
-              height: 23,
+              width: size.width / 2,
+              height: size.height / 2,
               tintColor: data.activate ? colors.white : colors.green,
             }}
             source={gift}
@@ -64,11 +74,16 @@ class Cell extends React.Component<Props> {
 
     if (data.name === 'add') {
       return (
-        <CellStyled bColor={colors.orange} rColor={colors.orange}>
+        <CellStyled
+          width={size.width}
+          height={size.height}
+          borderRadius={size.width / 2}
+          bColor={colors.orange}
+          rColor={colors.orange}>
           <Image
             style={{
-              width: 23,
-              height: 23,
+              width: size.width / 2,
+              height: size.height / 2,
             }}
             source={data.isLast ? gift : add}
           />
@@ -79,12 +94,18 @@ class Cell extends React.Component<Props> {
     const cellColor = typeColors[data.name];
 
     return (
-      <CellStyled bColor={cellColor.bColor} rColor={cellColor.rColor}>
+      <CellStyled
+        size={size}
+        width={size.width}
+        height={size.height}
+        borderRadius={size.width / 2}
+        bColor={cellColor.bColor}
+        rColor={cellColor.rColor}>
         {data.name === 'check_stamp' && (
           <Image
             style={{
-              width: 23,
-              height: 23,
+              width: size.width / 2,
+              height: size.height / 2,
             }}
             source={check}
           />
@@ -99,9 +120,6 @@ const CellStyled = styled.View`
   justify-content: center;
   align-items: center;
 
-  width: 46px;
-  height: 46px;
-  border-radius: 23px;
   border: 1px solid ${props => props.rColor};
   background-color: ${props => props.bColor};
 

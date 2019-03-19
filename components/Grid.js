@@ -58,6 +58,9 @@ class Grid extends React.Component<Props> {
 
 const GridStyled = styled.View`
   display: flex;
+  flex: 1;
+  align-items: center;
+  border: 1px solid blue;
 `;
 
 const Row = styled.View`

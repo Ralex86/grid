@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {Animated, View, Text, Button} from 'react-native';
 import styled, {css} from '@emotion/native';
 
 // 1. cree une scene qui fait bouger son contenu dun certain offset
@@ -17,31 +17,50 @@ class Slider extends React.Component<Props, State> {
   state = {
     tValue: 0,
     sceneWidth: 0,
-    dx: 0,
+    dx: new Animated.Value(0),
     index: 0,
   };
 
   onPressRequestIndex = (index: number) => {
     const direction = this.state.index - index;
-    this.setState(prevState => ({
-      dx: this.state.sceneWidth * direction,
-    }));
+    const toValue = this.state.sceneWidth * direction;
+    this.animate(index, toValue);
+  };
+
+  animate = (destIndex: number, toValue: number) => {
+    const {dx} = this.state;
+    const config = {
+      toValue,
+      overshootClamping: true,
+      useNativeDriver: true,
+    };
+
+    Animated.spring(dx, config).start(() => {
+      this.state.dx.setValue(0);
+      this.setState({index: destIndex});
+    });
   };
 
   renderScenery = (children, dx) => {
     return (
       <Scenery>
-        <Container
+        <Animated.View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flex: 1,
+            width: '300%',
+            border: '4px solid yellow',
+            left: this.state.index * -1 * this.state.sceneWidth,
+            transform: [{translateX: dx}],
+          }}
           onLayout={event => {
             this.setState({
               sceneWidth: event.nativeEvent.layout.width / this.nChildren,
             });
-          }}
-          style={{
-            transform: [{translateX: dx}],
           }}>
           {children}
-        </Container>
+        </Animated.View>
       </Scenery>
     );
   };
@@ -49,7 +68,6 @@ class Slider extends React.Component<Props, State> {
   render() {
     const {dx, index} = this.state;
     const {children} = this.props;
-    console.warn(dx);
     return (
       <SliderStyled>
         {this.renderScenery(children, dx)}
@@ -68,20 +86,13 @@ class Slider extends React.Component<Props, State> {
   }
 }
 
-const Container = styled.View`
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-
-  width: 300%;
-  border: 4px solid yellow;
-`;
+const Container = styled.View``;
 
 const Scenery = styled.View`
   position: absolute;
-  top: 0;
-  left: 16px;
-  right: 16px;
+  top: 100px;
+  left: 24px;
+  right: 24px;
   bottom: 50%;
 
   display: flex;

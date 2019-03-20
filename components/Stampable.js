@@ -2,10 +2,11 @@
 import React, {Fragment} from 'react';
 import {View, Text} from 'react-native';
 import styled from '@emotion/native';
-import Slider from './Slider';
 
+import Slider from './Slider';
 import Grid from './Grid';
 import Cell from './Cell';
+import LevelHeader from './LevelHeader';
 
 type CellData = {
   name: string,
@@ -142,7 +143,7 @@ class Stampable extends React.Component<Props> {
     );
   };
 
-  setSlides = (levels: Array<Level>, stamps: number): any => {
+  getSlides = (levels: Array<Level>, stamps: number): Array<*> => {
     // setGridDimensions according to Levels stamp amount
     // and offset the grid rows for each levels if needed
     const {nRow, nColumn} = this.setGridDimensions(levels);
@@ -166,40 +167,30 @@ class Stampable extends React.Component<Props> {
     );
 
     return grids;
-
-    //const slides = grids.map((grid, index) => {
-    //return {
-    //content: () => grid,
-    //delayedContent: () => <Text>{`Level ${index + 1}`}</Text>,
-    //};
-    //});
-
-    //return slides;
   };
-
-  renderContent = (Component: any) => {
-    return (
-      <Content>
-        <Component />
-      </Content>
-    );
-  };
-
-  renderDelayedContent = (Component: any) => (
-    <DelayedContent>
-      <Component />
-    </DelayedContent>
-  );
 
   render() {
     const {levels, stamps} = this.props;
     return (
       <StampableStyled>
-        <Slider>{this.setSlides(levels, stamps)}</Slider>
+        <Slider scene={this.getSlides(levels, stamps)} nSlides={3} />
       </StampableStyled>
     );
   }
 }
+
+//<Slider scene={<Row>{this.getSlides(levels, stamps)}</Row>} />
+
+//  <Slider
+//nSlides={3}
+//scene={
+//<Container>
+//<LevelHeader nLevels={3} />
+//</Container>
+//}
+///>
+
+//<Slider scene={this.getSlides(levels, stamps)} />
 
 //<Slider
 //slides={this.setSlides(levels, stamps)}
@@ -208,6 +199,13 @@ class Stampable extends React.Component<Props> {
 //delayFactor={0.3}
 //triggeringThreshold={0}
 ///>
+//
+const Row = styled.View`
+  flex-direction: row;
+`;
+const Container = styled.View`
+  width: 600px;
+`;
 
 const Content = styled.View`
   align-items: center;
@@ -224,8 +222,8 @@ const DelayedContent = styled.View`
 
 const StampableStyled = styled.View`
   display: flex;
+  width: 100%;
   flex: 1;
-  flex-direction: row;
 `;
 
 export default Stampable;

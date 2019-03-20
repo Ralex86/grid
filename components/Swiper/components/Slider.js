@@ -214,9 +214,19 @@ const Slide = styled.View`
 `;
 
 const SliderStyled = styled.View`
-	width: 90px;
-  //width: ${props => props.width};
-  background: yellow;
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  width: 100%;
+
+  border: 8px solid red;
 `;
 
 export default withSliderContext(Slider);

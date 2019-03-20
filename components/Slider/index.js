@@ -1,30 +1,31 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Animated, View, Text, Button} from 'react-native';
 import styled, {css} from '@emotion/native';
+import LevelHeader from '../LevelHeader';
 
 // 1. cree une scene qui fait bouger son contenu dun certain offset
 
 type Props = {
-  children: any,
+  scene: React$Element<*>,
+  nSlides: number,
 };
+
 type State = {
-  tValue: number,
+  sceneWidth: number,
+  dx: any,
+  index: number,
 };
 
 class Slider extends React.Component<Props, State> {
-  nChildren: number = this.props.children.length;
-
   state = {
-    tValue: 0,
-    sceneWidth: 200,
+    sceneElement: 0,
     dx: new Animated.Value(0),
-
     index: 0,
   };
 
   onPressRequestIndex = (index: number) => {
     const direction = this.state.index - index;
-    const toValue = this.state.sceneWidth * direction;
+    const toValue = this.state.sceneElement * direction;
     this.animate(index, toValue);
   };
 
@@ -36,53 +37,35 @@ class Slider extends React.Component<Props, State> {
       useNativeDriver: true,
     };
 
-    Animated.timing(dx, config).start(() => {
+    Animated.spring(dx, config).start(() => {
       this.state.dx.setValue(0);
       this.setState({index: destIndex});
     });
   };
 
-  renderScenery = (children, dx) => {
-    console.log('render', this.state);
+  renderScenery = (scene: React$Element<*>, nSlides: number) => {
+    const sceneWidth = nSlides * 100;
+    console.log(this.state);
+
     return (
       <Scenery>
         <Animated.View
           style={{
             display: 'flex',
-            flexDirection: 'row',
             flex: 1,
-            width: '300%',
-            border: '4px solid yellow',
-            left: (-1 * this.state.index * this.state.sceneWidth) / 2,
-            transform: [
-              {
-                translateX: Animated.divide(dx, 2),
-              },
-            ],
+            width: `${sceneWidth}%`,
+            left: this.state.index * -1 * this.state.sceneElement,
+            transform: [{translateX: this.state.dx}],
           }}
           onLayout={event => {
             this.setState({
-              sceneWidth: event.nativeEvent.layout.width / this.nChildren,
+              sceneElement: event.nativeEvent.layout.width / nSlides,
             });
           }}>
-          {children}
-        </Animated.View>
-        <Animated.View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flex: 1,
-            width: '300%',
-            border: '4px solid yellow',
-            left: this.state.index * -1 * this.state.sceneWidth,
-            transform: [{translateX: dx}],
-          }}
-          onLayout={event => {
-            this.setState({
-              sceneWidth: event.nativeEvent.layout.width / this.nChildren,
-            });
-          }}>
-          {children}
+          <Scene marginHorizontal={this.state.sceneElement / 2}>
+            <LevelHeader nLevels={3} />
+          </Scene>
+          <Scene>{scene}</Scene>
         </Animated.View>
       </Scenery>
     );
@@ -90,11 +73,11 @@ class Slider extends React.Component<Props, State> {
 
   render() {
     const {dx, index} = this.state;
-    const {children} = this.props;
+    const {scene, nSlides} = this.props;
 
     return (
       <SliderStyled>
-        {this.renderScenery(children, dx)}
+        {this.renderScenery(scene, nSlides)}
         <Button
           onPress={() => this.onPressRequestIndex(index + 1)}
           title="next"
@@ -110,7 +93,11 @@ class Slider extends React.Component<Props, State> {
   }
 }
 
-const Container = styled.View``;
+const Scene = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+`;
 
 const Scenery = styled.View`
   position: absolute;
@@ -135,8 +122,6 @@ const SliderStyled = styled.View`
   flex: 1;
 
   width: 100%;
-
-  border: 8px solid red;
 `;
 
 export default Slider;

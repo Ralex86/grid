@@ -8,7 +8,7 @@ import Stampable from './components/Stampable';
 const loyalty_stampable_levels = [
   {
     level: 1,
-    stamp_amount: 15,
+    stamp_amount: 20,
     reward: 'chocolatine',
   },
   {

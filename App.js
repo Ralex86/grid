@@ -8,12 +8,12 @@ import Stampable from './components/Stampable';
 const loyalty_stampable_levels = [
   {
     level: 1,
-    stamp_amount: 20,
+    stamp_amount: 15,
     reward: 'chocolatine',
   },
   {
     level: 2,
-    stamp_amount: 5,
+    stamp_amount: 3,
     reward: 'croissant',
   },
   {
@@ -21,13 +21,18 @@ const loyalty_stampable_levels = [
     stamp_amount: 10,
     reward: 'croissant',
   },
+  //{
+  //level: 4,
+  //stamp_amount: 3,
+  //reward: 'croissant',
+  //},
 ];
 
 class App extends React.Component<*> {
   render() {
     return (
       <AppStyled>
-        <Stampable levels={loyalty_stampable_levels} stamps={15} />
+        <Stampable levels={loyalty_stampable_levels} stamps={14} />
       </AppStyled>
     );
   }

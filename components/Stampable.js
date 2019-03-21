@@ -1,6 +1,7 @@
 // @flow
 import React, {Fragment} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, PanResponder, Animated} from 'react-native';
+import AnimatedValue from 'react-native/Libraries/Animated/src/nodes/AnimatedValue';
 import styled from '@emotion/native';
 
 import Slider from './Slider';
@@ -13,7 +14,9 @@ type CellData = {
   infos: string,
   activate: boolean,
 };
+
 type List = Array<any>;
+
 type Level = {
   level: number,
   stamp_amount: number,
@@ -173,7 +176,10 @@ class Stampable extends React.Component<Props> {
     const {levels, stamps} = this.props;
     return (
       <StampableStyled>
-        <Slider scene={this.getSlides(levels, stamps)} nSlides={3} />
+        <Slider
+          scene={this.getSlides(levels, stamps)}
+          nSlides={levels.length}
+        />
       </StampableStyled>
     );
   }

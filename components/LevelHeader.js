@@ -1,7 +1,8 @@
 // @flow
 import React, {Fragment} from 'react';
-import {StyleSheet, Text, View, ImageBackground} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground, Animated} from 'react-native';
 import styled from '@emotion/native';
+import AnimatedValue from 'react-native/Libraries/Animated/src/nodes/AnimatedValue';
 
 const levelImg = require('../assets/fondNiveau.png');
 
@@ -9,6 +10,7 @@ type Matrix = Array<Array<*>>;
 
 type Props = {
   nLevels: number,
+  dx: AnimatedValue,
 };
 
 const Level = (props: {level: number}) => {
@@ -77,6 +79,7 @@ const Title = styled.Text`
   margin: 4px;
   color: rgb(116, 173, 238);
   font-size: 12px;
+  font-weight: bold;
   text-align: center;
 `;
 

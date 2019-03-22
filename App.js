@@ -21,46 +21,18 @@ const loyalty_stampable_levels = [
     stamp_amount: 10,
     reward: 'croissant',
   },
-  //{
-  //level: 4,
-  //stamp_amount: 3,
-  //reward: 'croissant',
-  //},
 ];
 
 class App extends React.Component<*> {
   render() {
     return (
       <AppStyled>
-        <Stampable levels={loyalty_stampable_levels} stamps={14} />
+        <Stampable levels={loyalty_stampable_levels} stamps={4} />
       </AppStyled>
     );
   }
 }
 
-//<Slider>
-//<Scene opacity={0.6}>
-//<Text>Bla</Text>
-//</Scene>
-//<Scene opacity={0.4}>
-//<Text>Bla</Text>
-//</Scene>
-//<Scene opacity={0.2}>
-//<Text>Bla</Text>
-//</Scene>
-//</Slider>
-
-const Scene = styled.View`
-  display: flex;
-  flex: 1;
-  background-color: green;
-`;
-
-// <Grids left={tValue}>{levels}</Grids>
-
-//<Stampable levels={loyalty_stampable_levels} stamps={22} />
-//
-//
 const AppStyled = styled.View`
   display: flex;
   flex: 1;

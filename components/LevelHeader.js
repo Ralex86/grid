@@ -107,7 +107,7 @@ const Container = styled.View`
 
 const LevelHeaderStyled = styled.View`
   display: flex;
-  width: 100%;
+  flex: 1;
 `;
 
 export default LevelHeader;

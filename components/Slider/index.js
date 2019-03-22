@@ -28,6 +28,7 @@ class Slider extends React.Component<Props, State> {
   state = {
     sceneElement: 0,
     headerElement: 0,
+    sliderWidth: 0,
     dx: new Animated.Value(0),
     index: 0,
   };
@@ -89,28 +90,10 @@ class Slider extends React.Component<Props, State> {
 
   renderScenery = (scene: React$Element<*>, nSlides: number) => {
     const sceneWidth = nSlides * 100;
-    console.log(this.state);
+    console.log(nSlides);
 
     return (
       <Scenery>
-        <Animated.View
-          style={{
-            position: 'relative',
-            flex: 1,
-            left: (this.state.index * -1 * this.state.headerElement) / 2,
-            transform: [
-              {
-                translateX: Animated.divide(this.state.dx, 2),
-              },
-            ],
-          }}
-          onLayout={event => {
-            this.setState({
-              headerElement: event.nativeEvent.layout.width,
-            });
-          }}>
-          <LevelHeader nLevels={nSlides} />
-        </Animated.View>
         <Animated.View
           {...this.panResponder.panHandlers}
           style={{
@@ -135,9 +118,49 @@ class Slider extends React.Component<Props, State> {
     const {dx, index} = this.state;
     const {scene, nSlides} = this.props;
 
-    return <SliderStyled>{this.renderScenery(scene, nSlides)}</SliderStyled>;
+    return (
+      <SliderStyled
+        onLayout={event => {
+          this.setState({
+            sliderWidth: event.nativeEvent.layout.width,
+          });
+        }}>
+        <Animated.View
+          style={{
+            width: Dimensions.get('window').width + 50,
+            left: (this.state.index * -1 * this.state.sceneElement) / 2,
+            transform: [
+              {
+                translateX: Animated.divide(Animated.add(this.state.dx, 0), 2),
+              },
+            ],
+          }}
+          onLayout={event => {
+            this.setState({
+              headerElement: event.nativeEvent.layout.width,
+            });
+          }}>
+          <Header>
+            <LevelHeader nLevels={nSlides} />
+          </Header>
+        </Animated.View>
+        {this.renderScenery(scene, nSlides)}
+      </SliderStyled>
+    );
   }
 }
+
+//<Spacer width={this.state.sceneElement / 2 - 25} />
+
+const Spacer = styled.View`
+  background-color: blue;
+  opacity: 0.5;
+`;
+
+const Header = styled.View`
+  display: flex;
+  height: 50px;
+`;
 
 const Scene = styled.View`
   display: flex;
@@ -148,12 +171,11 @@ const Scene = styled.View`
 const Scenery = styled.View`
   position: absolute;
   top: 100px;
-  left: 30px;
-  right: 30px;
+  left: 36px;
+  right: 36px;
 
   display: flex;
   flex-direction: column;
-  //border: 6px solid orange;
 `;
 
 const SliderStyled = styled.View`
@@ -165,6 +187,7 @@ const SliderStyled = styled.View`
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   flex: 1;
 
   width: 100%;
